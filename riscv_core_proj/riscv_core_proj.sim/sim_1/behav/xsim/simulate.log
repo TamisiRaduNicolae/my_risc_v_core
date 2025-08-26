@@ -1,0 +1,13 @@
+Time resolution is 1 ps
+Time=0 | rst=1 | pc_next=0x00000000 | pc_current=0xxxxxxxxx
+Time=5000 | rst=1 | pc_next=0x00000000 | pc_current=0x00000000
+Time=20000 | rst=0 | pc_next=0x00000004 | pc_current=0x00000000
+Time=25000 | rst=0 | pc_next=0x00000004 | pc_current=0x00000004
+Time=30000 | rst=0 | pc_next=0x00000008 | pc_current=0x00000004
+Time=35000 | rst=0 | pc_next=0x00000008 | pc_current=0x00000008
+Time=40000 | rst=0 | pc_next=0x0000000c | pc_current=0x00000008
+Time=45000 | rst=0 | pc_next=0x0000000c | pc_current=0x0000000c
+Time=50000 | rst=1 | pc_next=0x0000000c | pc_current=0x0000000c
+Time=55000 | rst=1 | pc_next=0x0000000c | pc_current=0x00000000
+test completed
+$finish called at time : 60 ns : File "C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/riscv_core_proj.srcs/sim_1/new/pc_tb.sv" Line 48

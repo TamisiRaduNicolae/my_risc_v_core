@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Tue Aug 26 00:13:15 2025
+# Process ID         : 2252
+# Current directory  : C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent11052 C:\Users\tamis\my_projects_Tamisi_Radu\my_risc_v_core_folder\my_risc_v_core\riscv_core_proj\riscv_core_proj.xpr
+# Log file           : C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/vivado.log
+# Journal file       : C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj\vivado.jou
+# Running On         : RaduTamisi
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 22631
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-13700H
+# CPU Frequency      : 2918 MHz
+# CPU Physical cores : 14
+# CPU Logical cores  : 20
+# Host memory        : 16890 MB
+# Swap memory        : 1073 MB
+# Total Virtual      : 17964 MB
+# Available Virtual  : 9661 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/riscv_core_proj.xpr
+INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
+Current project path is 'C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj'
+INFO: [Project 1-313] Project file moved from 'C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core/my_risc_v_core/riscv_core_proj' since last save.
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/riscv_core_proj.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'A:/Vivado/2024.2/data/ip'.
+exit
+INFO: [Common 17-206] Exiting Vivado at Tue Aug 26 00:15:27 2025...

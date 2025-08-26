@@ -1,0 +1,17 @@
+Vivado Simulator v2024.2.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: A:/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot pc_tb_behav xil_defaultlib.pc_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/riscv_core_proj.srcs/sources_1/new/pc.sv" Line 3. Module pc doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/Users/tamis/my_projects_Tamisi_Radu/my_risc_v_core_folder/my_risc_v_core/riscv_core_proj/riscv_core_proj.srcs/sources_1/new/pc.sv" Line 3. Module pc doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.pc
+Compiling module xil_defaultlib.pc_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot pc_tb_behav
