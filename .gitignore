@@ -1,0 +1,16 @@
+# Ignore Vivado simulation output
+*.wdb
+*.log
+xsim.dir/
+
+# Optional: ignore Vivado temporary build files
+*.jou
+*.str
+*.pb
+*.dcp
+*.runs/
+*.cache/
+*.sim/
+*.ip_user_files/
+*.hw/
+*.data/
