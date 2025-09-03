@@ -1,0 +1,12 @@
+ALU_CTRL
+0000 → ADD
+0001 → SUB
+0010 → AND
+0011 → OR
+0100 → XOR
+0101 → SLT   (Set Less Than signed)
+0110 → SLTU  (Set Less Than unsigned)
+0111 → SLL   (Shift Left Logical)
+1000 → SRL   (Shift Right Logical)
+1001 → SRA   (Shift Right Arithmetic)
+
