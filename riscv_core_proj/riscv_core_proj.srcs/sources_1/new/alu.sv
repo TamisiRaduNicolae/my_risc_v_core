@@ -9,26 +9,44 @@ module alu(
     output logic        zero          // used for branch decisions
     );
     
-    
-    always_comb begin
-    case (alu_ctrl)
-      4'b0000: alu_result = operand_a + operand_b;            // ADD
-      4'b0001: alu_result = operand_a - operand_b;            // SUB
-      4'b0010: alu_result = operand_a & operand_b;            // AND
-      4'b0011: alu_result = operand_a | operand_b;            // OR
-      4'b0100: alu_result = operand_a ^ operand_b;            // XOR
-      4'b0101: alu_result = operand_a << operand_b[4:0];      // SLL
-      4'b0110: alu_result = operand_a >> operand_b[4:0];      // SRL
-      4'b0111: alu_result = $signed(operand_a) >>> operand_b[4:0]; // SRA
-      4'b1000: alu_result = ($signed(operand_a) < $signed(operand_b)) ? 32'd1 : 32'd0; // SLT
-      4'b1001: alu_result = (operand_a < operand_b) ? 32'd1 : 32'd0;                   // SLTU
-      default: alu_result = 32'd0;
-    endcase
-  end
+    // ALU control codes
+    localparam ALU_ADD  = 4'b0000;
+    localparam ALU_SUB  = 4'b0001;
+    localparam ALU_AND  = 4'b0010;
+    localparam ALU_OR   = 4'b0011;
+    localparam ALU_XOR  = 4'b0100;
+    localparam ALU_SLT  = 4'b0101; // signed
+    localparam ALU_SLTU = 4'b0110; // unsigned
+    localparam ALU_SLL  = 4'b0111;
+    localparam ALU_SRL  = 4'b1000;
+    localparam ALU_SRA  = 4'b1001;
 
-  assign zero = (alu_result == 0);
-    
-    
-    
-    
+    always_comb begin
+        unique case (alu_ctrl)
+            ALU_ADD : alu_result = operand_a + operand_b;
+            
+            ALU_SUB : alu_result = operand_a - operand_b;
+            
+            ALU_AND : alu_result = operand_a & operand_b;
+            
+            ALU_OR  : alu_result = operand_a | operand_b;
+            
+            ALU_XOR : alu_result = operand_a ^ operand_b;
+            
+            ALU_SLT : alu_result = ($signed(operand_a) <  $signed(operand_b)) ? 32'd1 : 32'd0 ;
+            
+            ALU_SLTU: alu_result = (operand_a   <  operand_b) ? 32'd1 : 32'd0 ;
+            
+            ALU_SLL : alu_result = operand_a << operand_b[4:0];
+            
+            ALU_SRL : alu_result = operand_a >> operand_b[4:0];
+            
+            ALU_SRA : alu_result = $signed(operand_a) >>> operand_b[4:0];
+            
+            default : alu_result = 32'd0;
+        endcase
+    end
+
+    assign zero = (alu_result == 32'd0);
+
 endmodule
