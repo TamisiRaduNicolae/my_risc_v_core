@@ -6,7 +6,11 @@ module alu(
     input  logic [31:0] operand_b,
     input  logic [3:0]  alu_ctrl,     // ALU operation select
     output logic [31:0] alu_result,
-    output logic        zero          // used for branch decisions
+    output logic        zero   ,       // used for branch decisions
+     output logic        lt_signed,
+    output logic        lt_unsigned,
+    output logic        ge_signed,
+    output logic        ge_unsigned
     );
     
     // ALU control codes
@@ -48,5 +52,9 @@ module alu(
     end
 
     assign zero = (alu_result == 32'd0);
-
+     assign lt_signed   = ($signed(operand_a) < $signed(operand_b));
+    assign lt_unsigned = (operand_a < operand_b);
+    assign ge_signed   = ($signed(operand_a) >= $signed(operand_b));
+    assign ge_unsigned = (operand_a >= operand_b);
+    
 endmodule

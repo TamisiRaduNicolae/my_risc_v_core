@@ -1,81 +1,98 @@
 `timescale 1ns / 1ps
 
+module alu_tb;
 
-module alu_tb();
+    
+    logic [31:0] a_tb, b_tb;
+    logic [3:0]  alu_ctrl_tb;
+    logic [31:0] alu_result_tb;
+    logic        zero_tb;
+    logic        lt_signed_tb, lt_unsigned_tb, ge_signed_tb, ge_unsigned_tb;
 
+  
+    alu dut (
+        .operand_a(a_tb),
+        .operand_b(b_tb),
+        .alu_ctrl(alu_ctrl_tb),
+        .alu_result(alu_result_tb),
+        .zero(zero_tb),
+        .lt_signed(lt_signed_tb),
+        .lt_unsigned(lt_unsigned_tb),
+        .ge_signed(ge_signed_tb),
+        .ge_unsigned(ge_unsigned_tb)
+    );
 
-  logic [31:0] operand_a_tb;
-  logic [31:0] operand_b_tb;
-  logic [3:0]  alu_ctrl_tb;
-  logic [31:0] alu_result_tb;
-  logic        zero_tb;
+    // match the ALU encodings !!!
+    localparam ALU_ADD  = 4'b0000;
+    localparam ALU_SUB  = 4'b0001;
+    localparam ALU_AND  = 4'b0010;
+    localparam ALU_OR   = 4'b0011;
+    localparam ALU_XOR  = 4'b0100;
+    localparam ALU_SLT  = 4'b0101;
+    localparam ALU_SLTU = 4'b0110;
+    localparam ALU_SLL  = 4'b0111;
+    localparam ALU_SRL  = 4'b1000;
+    localparam ALU_SRA  = 4'b1001;
 
-  alu dut (
-    .operand_a(operand_a_tb),
-    .operand_b(operand_b_tb),
-    .alu_ctrl(alu_ctrl_tb),
-    .alu_result(alu_result_tb),
-    .zero(zero_tb)
-  );
-
-  task automatic check(input [31:0] a, input [31:0] b, input [3:0] ctrl, input [31:0] expected);
+    // task to check ALU behavior
+    task check_op(
+        input [31:0] a,
+        input [31:0] b,
+        input [3:0]  ctrl,
+        input [31:0] exp_result,
+        input string op_name
+    );
     begin
-    
-      operand_a_tb = a;
-      operand_b_tb = b;
-      alu_ctrl_tb  = ctrl;
-      
-      #1;
-      
-      assert (alu_result_tb === expected)
-      
-        else $error("FAIL: a=0x%08h b=0x%08h ctrl=%0d expected=0x%08h got=0x%08h",
-                      a, b, ctrl, expected, alu_result_tb);
-                     
-      $display("PASS: a=0x%08h b=0x%08h ctrl=%0d result=0x%08h",
-                 a, b, ctrl, alu_result_tb);
-                
+        a_tb = a;
+        b_tb = b;
+        alu_ctrl_tb = ctrl;
+        #1; 
+        if (alu_result_tb !== exp_result)
+            $display(" %s failed: a=%0d b=%0d got=%h expected=%h ",
+                      op_name, a, b, alu_result_tb, exp_result);
+        else
+            $display(" %s passed: a=%0d b=%0d result=%h ",
+                      op_name, a, b, alu_result_tb);
     end
-  endtask
+    endtask
 
-  initial begin
-  
-  
-    // ADD
-    check(32'd10, 32'd5, 4'b0000, 32'd15);
-    
-    // SUB
-    check(32'd10, 32'd5, 4'b0001, 32'd5);
-    
-    // AND
-    check(32'hFF00FF00, 32'h0F0F0F0F, 4'b0010, 32'h0F000F00);
-    
-    // OR
-    check(32'hF0F0F0F0, 32'h0F0F0F0F, 4'b0011, 32'hFFFFFFFF);
-    
-    // XOR
-    check(32'hAAAA5555, 32'h5555AAAA, 4'b0100, 32'hFFFFFFFF);
-    
-    // Shift left
-    check(32'd1, 32'd3, 4'b0101, 32'd8);
-    
-    // SRL
-    check(32'h80000000, 32'd1, 4'b0110, 32'h40000000);
-    
-    // SRA
-    check(32'h80000000, 32'd1, 4'b0111, 32'hC0000000);
-    
-    // SLT signed
-    check(-32'sd5, 32'sd10, 4'b1000, 32'd1);
-    
-    // SLTU unsigned
-    check(32'd5, 32'd10, 4'b1001, 32'd1);
-    
+    // task to check comparison flags
+    task check_flags(
+        input [31:0] a,
+        input [31:0] b);
+    begin
+        a_tb = a;
+        b_tb = b;
+        alu_ctrl_tb = ALU_ADD;  // ctrl doesn't matter for flags
+        #1;
+        
+        $display("Flags for a=%0d, b=%0d -> lt_signed=%0b lt_unsigned=%0b ge_signed=%0b ge_unsigned=%0b",
+                  a, b, lt_signed_tb, lt_unsigned_tb, ge_signed_tb, ge_unsigned_tb);
+    end
+    endtask
 
-    $display("All ALU tests completed");
-    $finish;
-    
-    
-  end
+    // === Test sequence ===
+    initial begin
+        $display("=== ALU Operation Tests ===");
+
+        check_op(10, 5, ALU_ADD , 15, "ADD");    
+        check_op(10, 5, ALU_SUB , 5,  "SUB");    
+        check_op(8,  2, ALU_AND , 0,  "AND");    
+        check_op(8,  2, ALU_OR  , 10, "OR");     
+        check_op(8,  2, ALU_XOR , 10, "XOR");    
+        check_op(8,  1, ALU_SLL , 16, "SLL");    
+        check_op(8,  1, ALU_SRL , 4,  "SRL");    
+        check_op(-8, 2, ALU_SRA , -2, "SRA");    
+        check_op(3,  5, ALU_SLT , 1,  "SLT");    
+        check_op(3,  5, ALU_SLTU, 1,  "SLTU");   
+
+        $display("\n=== ALU Flag Tests ===");
+        check_flags(5, 10);               
+        check_flags(10, 5);               
+        check_flags(-5, 3);               
+        check_flags(32'hffff_ffff, 0);    
+
+        $finish;
+    end
 
 endmodule
