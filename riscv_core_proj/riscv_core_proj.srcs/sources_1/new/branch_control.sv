@@ -4,9 +4,9 @@ module branch_control(
      input  logic       zero,           // ALU says result==0
      input  logic       less_than,      // signed comparison
      input  logic       greater_equal,   // signed comparison
-     input  logic       less_than_u,    // unsigned comparison
-     input  logic       greater_equal_u,  // unsigned comparison
-     output logic       branch_taken      // 1 = branch, 0 = no branch
+     input  logic       less_than_u,     // unsigned comparison
+     input  logic       greater_equal_u, // unsigned comparison
+     output logic       branch_taken     // 1 = branch, 0 = no branch
     ); 
     
     
